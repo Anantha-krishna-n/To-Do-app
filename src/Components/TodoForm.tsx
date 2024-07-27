@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import TodoService from '../TodoService';
 import TodoType from '../todo';
+import { toast } from 'react-toastify';
 
 const TodoForm = ({ setTodos }: { setTodos: React.Dispatch<React.SetStateAction<TodoType[]>> }) => {
     const [text, setText] = useState('');
@@ -12,6 +13,7 @@ const TodoForm = ({ setTodos }: { setTodos: React.Dispatch<React.SetStateAction<
             const newTodo = TodoService.addTodos(text);
             setTodos((prevTodos) => [...prevTodos, newTodo]);
             setText('');
+            toast.success('Todo added successfully!');
         }
     };
 

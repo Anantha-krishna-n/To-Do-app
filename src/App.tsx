@@ -2,6 +2,8 @@ import React from "react";
 import TodoList from "./Components/TodoList";
 import { FaPen } from "react-icons/fa";
 import { FaClipboardList } from "react-icons/fa6";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
@@ -16,6 +18,7 @@ const App = () => {
          <TodoList />
          </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

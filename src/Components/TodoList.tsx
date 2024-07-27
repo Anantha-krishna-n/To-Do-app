@@ -6,6 +6,7 @@ import { FaCheck, FaEdit } from 'react-icons/fa';
 import { GiCancel } from 'react-icons/gi';
 import { RiDeleteBin5Fill } from 'react-icons/ri';
 import TodoForm from './TodoForm';
+import { toast } from 'react-toastify';
 
 const TodoList = () => {
     const [todos, setTodos] = useState<TodoType[]>(TodoService.getTodos());
@@ -32,18 +33,20 @@ const TodoList = () => {
             setTodos((prevTodos) => prevTodos.map((todo) => todo.id === id ? updateTodo : todo));
             setEditedTodoId(null);
             setEditedTodoText("");
+            toast.dark('Todo updated successfully!', { className: '.toast-update' });
+
         }
     }
 
     const handleDeleteTodo = (id: number) => {
         TodoService.deleteTodo(id);
         setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
-    }
+        toast.error('Todo deleted successfully!', { className: 'toast-error' });    }
 
     return (
         <div className="container mx-auto mt-10">
             <TodoForm setTodos={setTodos} />
-            <div className="mt-6 space-y-4">
+            <div className="mt-6 h-96 overflow-y-auto space-y-4">
                 {todos.map((todo) => (
                     <div className="flex items-center justify-between p-4 bg-white shadow-md rounded-lg" key={todo.id}>
                         {editedTodoId === todo.id ? (
@@ -59,10 +62,12 @@ const TodoList = () => {
                                 <button onClick={handleEditCancel} className="text-red-500"><GiCancel /></button>
                             </div>
                         ) : (
-                            <div className="flex items-center space-x-2">
-                                <span>{todo.text}</span>
-                                <button onClick={() => handleEditStart(todo.id, todo.text)} className="text-blue-500"><FaEdit /></button>
-                                <button onClick={() => handleDeleteTodo(todo.id)} className="text-red-500"><RiDeleteBin5Fill /></button>
+                            <div className="flex items-center w-full">
+                                 <span className="flex-1">{todo.text}</span>
+                                <div className="flex space-x-2 ml-auto">
+                                <button onClick={() => handleEditStart(todo.id, todo.text)} className="text-blue-500 "><FaEdit /></button>
+                                <button onClick={() => handleDeleteTodo(todo.id)} className="text-red-500 "><RiDeleteBin5Fill /></button>
+                                </div>
                             </div>
                         )}
                     </div>

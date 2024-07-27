@@ -40,3 +40,12 @@
 .read-the-docs {
   color: #888;
 }
+
+.toast-error {
+  background-color: #f44336; /* Red background for error */
+  color: white;              /* White text color */
+}
+.toast-update {
+  background-color: #ff9800; /* Orange background for update */
+  color: white;              /* White text color */
+}
