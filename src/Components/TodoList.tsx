@@ -1,5 +1,4 @@
-// src/Components/TodoList.tsx
-import React, { useState } from 'react';
+// src/Components/TodoList.ts
 import TodoType from '../todo';
 import TodoService from '../TodoService';
 import { FaCheck, FaEdit } from 'react-icons/fa';
@@ -7,6 +6,7 @@ import { GiCancel } from 'react-icons/gi';
 import { RiDeleteBin5Fill } from 'react-icons/ri';
 import TodoForm from './TodoForm';
 import { toast } from 'react-toastify';
+import { useState } from 'react';
 
 const TodoList = () => {
     const [todos, setTodos] = useState<TodoType[]>(TodoService.getTodos());
@@ -43,12 +43,16 @@ const TodoList = () => {
         toast.error('Todo deleted successfully!', { className: 'toast-error' });   
      }
      const handleTodoCompletetion=(id:number)=>{
-        const updatedTodos = TodoService.todoCompeted(id);
-        setTodos(updatedTodos);
-        toast.success('Todo mark as completed!');
-
-     }
-
+        const todos = TodoService.getTodos();
+        const todoToToggle = todos.find(todo => todo.id === id);
+        if (todoToToggle) {
+            const updatedTodos = TodoService.todoCompeted(id);
+            setTodos(updatedTodos);
+            if (!todoToToggle.completed) {
+                toast.success('Todo marked as completed!');
+            }
+        }
+    }
      return (
         <div className="container mx-auto mt-10">
             <TodoForm setTodos={setTodos} />
