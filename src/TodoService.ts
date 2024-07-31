@@ -31,6 +31,14 @@ const TodoService = {
         const todos = TodoService.getTodos();
         const updatedTodos = todos.filter((todo) => todo.id !== id);
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedTodos));
+    },
+    //todo completed
+    todoCompeted:(id:number):TodoType[]=>{
+        const todos=TodoService.getTodos();
+        const updatedTodos = todos.map(todo => todo.id === id ? { ...todo, completed: !todo.completed } : todo);
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedTodos));
+        return updatedTodos;
+
     }
 };
 
